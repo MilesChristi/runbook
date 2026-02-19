@@ -1,0 +1,25 @@
+site_name: SysAdmin Runbook
+site_description: Operational runbook for infrastructure and deployment
+site_author: MilesChristi
+
+theme:
+  name: material
+  language: fr
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.top
+    - search.highlight
+    - content.code.copy
+
+  nav:
+  - Accueil: index.md
+  - Architecture: architecture/index.md
+  - Installations:
+      - FOG - Installation: installations/fog-installation.md
+  - Exploitation: exploitation/index.md
+  - Dépannage: depannage/index.md
+  - Checklists: checklists/index.md
+  - Incidents: incidents/index.md
+  - Scripts: scripts/index.md
+
