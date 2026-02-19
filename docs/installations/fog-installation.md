@@ -37,7 +37,7 @@ sudo ./installfog.sh
 
 Au lancement de l'installateur FOG, une Fenêtre s'affiche :
 
-![[png.png]]
+![[Procédure]](../assets/png.png)
 
 Une fois le processus terminé, on doit se connecter, à l'aide d'un navigateur, à l'adresse indiqué. Exemple :
 
