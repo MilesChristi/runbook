@@ -44,8 +44,9 @@ Une fois le processus terminé, on doit se connecter, à l'aide d'un navigateur,
 http://192.168.1.1/fog/management
 
 
->[!danger]
-Attention, ne pas faire "Entrée" tout de suite" Mais lancer le navigateur pour lancer l'initialisation de la base de données.
+!!! danger "ATTENTION"
+    Ne pas faire "Entrée" tout de suite.  
+    Lancer d’abord le navigateur pour initialiser la base de données.
 
 ### 2. Installation dnsmasq
 
@@ -159,4 +160,7 @@ sudo ufw reload
 - Parent : [[Index - Installations]]
     
 - Liés : [[...]]
-- Documentation : https://docs.fogproject.org/en/latest/
+
+🌐 **Documentation officielle FOG Project :**  
+[https://docs.fogproject.org/en/latest/](https://docs.fogproject.org/en/latest/)
+
