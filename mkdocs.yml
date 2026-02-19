@@ -24,3 +24,7 @@ theme:
   - Incidents: incidents/index.md
   - Scripts: scripts/index.md
 
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
