@@ -1447,102 +1447,101 @@
 <ul>
 <li>Serveur Debian ou Ubuntu</li>
 <li>Accès root</li>
-<li>IP fixe configurée</li>
-</ul>
-<pre><code class="language-bash">sudo nano /etc/netplan/01-netcfg.yaml
-</code></pre>
-<ul>
+<li>IP fixe configurée
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>nano<span class="w"> </span>/etc/netplan/01-netcfg.yaml
+</code></pre></div></li>
 <li>Accès Internet</li>
 </ul>
 <h2 id="procedure">🧭 Procédure</h2>
 <h3 id="1-installation-du-serveur-fog">1. Installation du serveur FOG</h3>
-<pre><code class="language-bash">sudo apt update &amp;&amp; sudo apt full-upgrade -y
-sudo apt install curl -y
-sudo apt install git -y
-</code></pre>
-<pre><code class="language-bash">cd fogproject-stable/bin
-sudo ./installfog.sh
-</code></pre>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>apt<span class="w"> </span>update<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>sudo<span class="w"> </span>apt<span class="w"> </span>full-upgrade<span class="w"> </span>-y
+sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>curl<span class="w"> </span>-y
+sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>git<span class="w"> </span>-y
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>fogproject-stable/bin
+sudo<span class="w"> </span>./installfog.sh
+</code></pre></div>
 <p>Au lancement de l'installateur FOG, une Fenêtre s'affiche :</p>
 <p><img alt="[Procédure]" src="../../assets/png.png" /></p>
 <p>Une fois le processus terminé, on doit se connecter, à l'aide d'un navigateur, à l'adresse indiqué. Exemple :</p>
 <p>http://192.168.1.1/fog/management</p>
-<p>!!! danger "ATTENTION"
-    Ne pas faire "Entrée" tout de suite.<br />
-    Lancer d’abord le navigateur pour initialiser la base de données.</p>
+<div class="admonition danger">
+<p class="admonition-title">ATTENTION</p>
+<p>Ne pas faire "Entrée" tout de suite.<br />
+Lancer d’abord le navigateur pour initialiser la base de données.</p>
+</div>
 <h3 id="2-installation-dnsmasq">2. Installation dnsmasq</h3>
-<pre><code class="language-bash">sudo apt update &amp;&amp; sudo apt full-upgrade -y
-sudo apt install dnsmasq -y
-dnsmasq --version
-</code></pre>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>apt<span class="w"> </span>update<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>sudo<span class="w"> </span>apt<span class="w"> </span>full-upgrade<span class="w"> </span>-y
+sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>dnsmasq<span class="w"> </span>-y
+dnsmasq<span class="w"> </span>--version
+</code></pre></div>
 <h3 id="3-creer-le-fichier-de-configuration-fog">3. Créer le fichier de configuration FOG</h3>
-<pre><code class="language-bash">sudo nano /etc/dnsmasq.d/ltsp.conf
-</code></pre>
-<p>⚠️ <strong>Remplace <code>192.168.1.66</code> par l’IP de TON serveur FOG</strong> <strong>et le dhcp-Range</strong></p>
-<pre><code class="language-bash"># ================================
-# DNSMASQ ProxyDHCP pour FOG
-# Debian 13
-# ================================
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>nano<span class="w"> </span>/etc/dnsmasq.d/ltsp.conf
+</code></pre></div>
+<p>⚠️ <strong>Remplace <code>192.168.1.66</code> par l’IP de TON serveur FOG</strong> <strong>et le dhcp-Range</strong>
+<div class="highlight"><pre><span></span><code><span class="c1"># ================================</span>
+<span class="c1"># DNSMASQ ProxyDHCP pour FOG</span>
+<span class="c1"># Debian 13</span>
+<span class="c1"># ================================</span>
 
-# Ne pas faire serveur DNS
-port=0
+<span class="c1"># Ne pas faire serveur DNS</span>
+<span class="nv">port</span><span class="o">=</span><span class="m">0</span>
 
-# Logs DHCP
+<span class="c1"># Logs DHCP</span>
 log-dhcp
 
-# Activer ou Désactiver TFTP
-#enable-tftp
-#tftp-root=/tftpboot
+<span class="c1"># Activer ou Désactiver TFTP</span>
+<span class="c1">#enable-tftp</span>
+<span class="c1">#tftp-root=/tftpboot</span>
 
-# Ne pas écraser options DHCP
+<span class="c1"># Ne pas écraser options DHCP</span>
 dhcp-no-override
 
-# Détection du type de firmware
-dhcp-vendorclass=BIOS,PXEClient:Arch:00000
-dhcp-vendorclass=UEFI32,PXEClient:Arch:00006
-dhcp-vendorclass=UEFI,PXEClient:Arch:00007
-dhcp-vendorclass=UEFI64,PXEClient:Arch:00009
+<span class="c1"># Détection du type de firmware</span>
+dhcp-vendorclass<span class="o">=</span>BIOS,PXEClient:Arch:00000
+dhcp-vendorclass<span class="o">=</span>UEFI32,PXEClient:Arch:00006
+dhcp-vendorclass<span class="o">=</span>UEFI,PXEClient:Arch:00007
+dhcp-vendorclass<span class="o">=</span>UEFI64,PXEClient:Arch:00009
 
-# BIOS Legacy
-dhcp-boot=undionly.kpxe,,192.168.1.66
+<span class="c1"># BIOS Legacy</span>
+dhcp-boot<span class="o">=</span>undionly.kpxe,,192.168.1.66
 
-# UEFI
-dhcp-boot=net:UEFI32,i386-efi/ipxe.efi,,192.168.1.66
-dhcp-boot=net:UEFI,ipxe.efi,,192.168.1.66
-dhcp-boot=net:UEFI64,ipxe.efi,,192.168.1.66
+<span class="c1"># UEFI</span>
+dhcp-boot<span class="o">=</span>net:UEFI32,i386-efi/ipxe.efi,,192.168.1.66
+dhcp-boot<span class="o">=</span>net:UEFI,ipxe.efi,,192.168.1.66
+dhcp-boot<span class="o">=</span>net:UEFI64,ipxe.efi,,192.168.1.66
 
-# Menu PXE
-pxe-prompt=&quot;Booting FOG Client&quot;, 1
+<span class="c1"># Menu PXE</span>
+pxe-prompt<span class="o">=</span><span class="s2">&quot;Booting FOG Client&quot;</span>,<span class="w"> </span><span class="m">1</span>
 
-pxe-service=X86PC,&quot;Boot to FOG&quot;,undionly.kpxe
-pxe-service=X86-64_EFI,&quot;Boot to FOG UEFI&quot;,ipxe.efi
-pxe-service=BC_EFI,&quot;Boot to FOG UEFI PXE-BC&quot;,ipxe.efi
+pxe-service<span class="o">=</span>X86PC,<span class="s2">&quot;Boot to FOG&quot;</span>,undionly.kpxe
+pxe-service<span class="o">=</span>X86-64_EFI,<span class="s2">&quot;Boot to FOG UEFI&quot;</span>,ipxe.efi
+pxe-service<span class="o">=</span>BC_EFI,<span class="s2">&quot;Boot to FOG UEFI PXE-BC&quot;</span>,ipxe.efi
 
-# Mode ProxyDHCP
-dhcp-range=192.168.1.0,proxy
-
-</code></pre>
+<span class="c1"># Mode ProxyDHCP</span>
+dhcp-range<span class="o">=</span><span class="m">192</span>.168.1.0,proxy
+</code></pre></div></p>
 <h3 id="4-redemarrer-et-activer-dnsmasq">4. Redémarrer et Activer dnsmasq</h3>
-<pre><code class="language-bash">sudo systemctl restart dnsmasq
-sudo systemctl enable dnsmasq
-</code></pre>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>systemctl<span class="w"> </span>restart<span class="w"> </span>dnsmasq
+sudo<span class="w"> </span>systemctl<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>dnsmasq
+</code></pre></div>
 <h3 id="5-verifier-que-le-port-69-tftp-ecoute">5. Vérifier que le port 69 (TFTP) écoute</h3>
-<pre><code class="language-bash">sudo ss -anu | grep :69
-</code></pre>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>ss<span class="w"> </span>-anu<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>:69
+</code></pre></div>
 <p>Résultat attendu :</p>
-<pre><code class="language-bash">UNCONN 0 0 0.0.0.0:69
-</code></pre>
+<div class="highlight"><pre><span></span><code>UNCONN<span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span>.0.0.0:69
+</code></pre></div>
 <h3 id="6-verifier-que-fog-fournit-bien-les-fichiers-pxe">6. Vérifier que FOG fournit bien les fichiers PXE</h3>
-<pre><code class="language-bash">ls /tftpboot
-</code></pre>
+<div class="highlight"><pre><span></span><code>ls<span class="w"> </span>/tftpboot
+</code></pre></div>
 <h3 id="7-ouvrir-les-ports-pare-feu-si-actif">7. Ouvrir les ports pare-feu (si actif)</h3>
-<pre><code class="language-bash">sudo apt install ufw -y
-sudo ufw allow 69/udp
-sudo ufw allow 4011/udp
-sudo ufw allow 80
-sudo ufw allow 443
-sudo ufw reload
-</code></pre>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>ufw<span class="w"> </span>-y
+sudo<span class="w"> </span>ufw<span class="w"> </span>allow<span class="w"> </span><span class="m">69</span>/udp
+sudo<span class="w"> </span>ufw<span class="w"> </span>allow<span class="w"> </span><span class="m">4011</span>/udp
+sudo<span class="w"> </span>ufw<span class="w"> </span>allow<span class="w"> </span><span class="m">80</span>
+sudo<span class="w"> </span>ufw<span class="w"> </span>allow<span class="w"> </span><span class="m">443</span>
+sudo<span class="w"> </span>ufw<span class="w"> </span>reload
+</code></pre></div>
 <h2 id="verifications">🧪 Vérifications</h2>
 <ol>
 <li>Démarre un PC client</li>
