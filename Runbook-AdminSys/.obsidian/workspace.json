@@ -1,0 +1,227 @@
+{
+  "main": {
+    "id": "ae7f9f509f6842e8",
+    "type": "split",
+    "children": [
+      {
+        "id": "037e3f8d4855269e",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "84cd5739ed046469",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "00 - Accueil/Index - Installations.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "Index - Installations"
+            }
+          }
+        ]
+      },
+      {
+        "id": "3f3af4fccf542210",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "bbdc2f0f33eb05b6",
+            "type": "leaf",
+            "state": {
+              "type": "graph",
+              "state": {},
+              "icon": "lucide-git-fork",
+              "title": "Graph view"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "bfe14d73d57d548a",
+    "type": "split",
+    "children": [
+      {
+        "id": "0bfa27b5bce040c3",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "6aa35546ecbd56dc",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical",
+                "autoReveal": false
+              },
+              "icon": "lucide-folder-closed",
+              "title": "Files"
+            }
+          },
+          {
+            "id": "5d556e87aef61e9a",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              },
+              "icon": "lucide-search",
+              "title": "Search"
+            }
+          },
+          {
+            "id": "ff8b951295e29e7c",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {},
+              "icon": "lucide-bookmark",
+              "title": "Bookmarks"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "4450262fe11e3c02",
+    "type": "split",
+    "children": [
+      {
+        "id": "1e8b4b96b059e47e",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "4a6d8c2f6c9d7b28",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "zz - Inbox/FOG Project - Installation.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-coming-in",
+              "title": "Backlinks for FOG Project - Installation"
+            }
+          },
+          {
+            "id": "ad2b0c5480a36c70",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "zz - Inbox/FOG Project - Installation.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-going-out",
+              "title": "Outgoing links from FOG Project - Installation"
+            }
+          },
+          {
+            "id": "52f0b434b93a1ffa",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-tags",
+              "title": "Tags"
+            }
+          },
+          {
+            "id": "1946a433710db833",
+            "type": "leaf",
+            "state": {
+              "type": "all-properties",
+              "state": {
+                "sortOrder": "frequency",
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-archive",
+              "title": "All properties"
+            }
+          },
+          {
+            "id": "ba816e43420cead1",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "zz - Inbox/FOG Project - Installation.md",
+                "followCursor": false,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-list",
+              "title": "Outline of FOG Project - Installation"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:Open quick switcher": false,
+      "graph:Open graph view": false,
+      "canvas:Create new canvas": false,
+      "daily-notes:Open today's daily note": false,
+      "templates:Insert template": false,
+      "command-palette:Open command palette": false,
+      "bases:Create new base": false
+    }
+  },
+  "active": "84cd5739ed046469",
+  "lastOpenFiles": [
+    "02 - Installations/FOG Project - Installation.md",
+    "00 - Accueil/Index - Installations.md",
+    "png.png",
+    "99 - Templates/Template - Runbook.md",
+    "00 - Accueil/Index - Scripts.md",
+    "00 - Accueil/Index - Incidents.md",
+    "00 - Accueil/Index - Checklists.md",
+    "00 - Accueil/Index - Depannage.md",
+    "00 - Accueil/Index - Exploitation.md",
+    "00 - Accueil/Index - Architecture.md",
+    "00 - Accueil/Accueil.md",
+    "Welcome.md",
+    "99 - Templates",
+    "zz - Inbox",
+    "07 - Scripts",
+    "06 - Incidents",
+    "05 - Checklists",
+    "04 - Depannage",
+    "03 - Exploitation",
+    "02 - Installations",
+    "01 - Architecture",
+    "00 - Accueil"
+  ]
+}
