@@ -15,25 +15,28 @@
         <link rel="canonical" href="https://mileschristi.github.io/runbook/installations/fog-installation/">
       
       
-        <link rel="prev" href="../../incidents/">
+        <link rel="prev" href="../../architecture/">
       
       
-        <link rel="next" href="../../scripts/">
+        <link rel="next" href="../../exploitation/">
       
       
         
       
       
-      <link rel="icon" href="../../assets/images/favicon.png">
+      <link rel="icon" href="../../assets/favicon.png">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.2">
     
     
       
-        <title>Fog installation - SysAdmin Runbook</title>
+        <title>FOG - Installation - IT Operations Runbook</title>
       
     
     
       <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
       
       
 
@@ -52,6 +55,8 @@
       
     
     
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
     <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
@@ -61,7 +66,14 @@
   </head>
   
   
-    <body dir="ltr">
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="grey" data-md-color-accent="light-blue">
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -70,7 +82,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#objectif" class="md-skip">
+        <a href="#fog-installation" class="md-skip">
           Aller au contenu
         </a>
       
@@ -82,12 +94,13 @@
     
       
 
-<header class="md-header" data-md-component="header">
-  <nav class="md-header__inner md-grid" aria-label="En-tête">
-    <a href="../.." title="SysAdmin Runbook" class="md-header__button md-logo" aria-label="SysAdmin Runbook" data-md-component="logo">
-      
   
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="En-tête">
+    <a href="../.." title="IT Operations Runbook" class="md-header__button md-logo" aria-label="IT Operations Runbook" data-md-component="logo">
+      
+  <img src="../../assets/logo.png" alt="logo">
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
@@ -98,18 +111,30 @@
       <div class="md-header__ellipsis">
         <div class="md-header__topic">
           <span class="md-ellipsis">
-            SysAdmin Runbook
+            IT Operations Runbook
           </span>
         </div>
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Fog installation
+              FOG - Installation
             
           </span>
         </div>
       </div>
     </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="grey" data-md-color-accent="light-blue"  aria-hidden="true"  type="radio" name="__palette" id="__palette_0">
+    
+  
+</form>
+      
     
     
       <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
@@ -141,6 +166,8 @@
         </button>
       </nav>
       
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
     </form>
     <div class="md-search__output">
       <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
@@ -166,176 +193,6 @@
       
         
           
-            
-<nav class="md-tabs" aria-label="Onglets" data-md-component="tabs">
-  <div class="md-grid">
-    <ul class="md-tabs__list">
-      
-        
-  
-  
-  
-  
-    <li class="md-tabs__item">
-      <a href="../.." class="md-tabs__link">
-        
-  
-  
-    
-  
-  Home
-
-      </a>
-    </li>
-  
-
-      
-        
-  
-  
-  
-  
-    
-    
-      <li class="md-tabs__item">
-        <a href="../../architecture/" class="md-tabs__link">
-          
-  
-  
-  Architecture
-
-        </a>
-      </li>
-    
-  
-
-      
-        
-  
-  
-  
-  
-    
-    
-      <li class="md-tabs__item">
-        <a href="../../checklists/" class="md-tabs__link">
-          
-  
-  
-  Checklists
-
-        </a>
-      </li>
-    
-  
-
-      
-        
-  
-  
-  
-  
-    
-    
-      <li class="md-tabs__item">
-        <a href="../../depannage/" class="md-tabs__link">
-          
-  
-  
-  Depannage
-
-        </a>
-      </li>
-    
-  
-
-      
-        
-  
-  
-  
-  
-    
-    
-      <li class="md-tabs__item">
-        <a href="../../exploitation/" class="md-tabs__link">
-          
-  
-  
-  Exploitation
-
-        </a>
-      </li>
-    
-  
-
-      
-        
-  
-  
-  
-  
-    
-    
-      <li class="md-tabs__item">
-        <a href="../../incidents/" class="md-tabs__link">
-          
-  
-  
-  Incidents
-
-        </a>
-      </li>
-    
-  
-
-      
-        
-  
-  
-  
-    
-  
-  
-    
-    
-      <li class="md-tabs__item md-tabs__item--active">
-        <a href="./" class="md-tabs__link">
-          
-  
-  
-  Installations
-
-        </a>
-      </li>
-    
-  
-
-      
-        
-  
-  
-  
-  
-    
-    
-      <li class="md-tabs__item">
-        <a href="../../scripts/" class="md-tabs__link">
-          
-  
-  
-  Scripts
-
-        </a>
-      </li>
-    
-  
-
-      
-    </ul>
-  </div>
-</nav>
-          
         
       
       <main class="md-main" data-md-component="main">
@@ -349,18 +206,15 @@
                     
 
 
-  
 
-
-<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="../.." title="SysAdmin Runbook" class="md-nav__button md-logo" aria-label="SysAdmin Runbook" data-md-component="logo">
+    <a href="../.." title="IT Operations Runbook" class="md-nav__button md-logo" aria-label="IT Operations Runbook" data-md-component="logo">
       
-  
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+  <img src="../../assets/logo.png" alt="logo">
 
     </a>
-    SysAdmin Runbook
+    IT Operations Runbook
   </label>
   
   <ul class="md-nav__list" data-md-scrollfix>
@@ -379,7 +233,7 @@
   <span class="md-ellipsis">
     
   
-    Home
+    Accueil
   
 
     
@@ -394,58 +248,6 @@
     
       
       
-  
-  
-  
-  
-    
-    
-    
-    
-      
-      
-        
-      
-    
-    
-    <li class="md-nav__item md-nav__item--nested">
-      
-        
-        
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
-        
-          
-          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
-            
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Architecture
-  
-
-    
-  </span>
-  
-  
-
-            <span class="md-nav__icon md-icon"></span>
-          </label>
-        
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_2">
-            <span class="md-nav__icon md-icon"></span>
-            
-  
-    Architecture
-  
-
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
-              
-                
   
   
   
@@ -458,7 +260,7 @@
   <span class="md-ellipsis">
     
   
-    Index
+    Architecture
   
 
     
@@ -470,362 +272,6 @@
     </li>
   
 
-              
-            
-          </ul>
-        </nav>
-      
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    
-    
-    
-    
-      
-      
-        
-      
-    
-    
-    <li class="md-nav__item md-nav__item--nested">
-      
-        
-        
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
-        
-          
-          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
-            
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Checklists
-  
-
-    
-  </span>
-  
-  
-
-            <span class="md-nav__icon md-icon"></span>
-          </label>
-        
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_3">
-            <span class="md-nav__icon md-icon"></span>
-            
-  
-    Checklists
-  
-
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../checklists/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Index
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-          </ul>
-        </nav>
-      
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    
-    
-    
-    
-      
-      
-        
-      
-    
-    
-    <li class="md-nav__item md-nav__item--nested">
-      
-        
-        
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
-        
-          
-          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
-            
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Depannage
-  
-
-    
-  </span>
-  
-  
-
-            <span class="md-nav__icon md-icon"></span>
-          </label>
-        
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_4">
-            <span class="md-nav__icon md-icon"></span>
-            
-  
-    Depannage
-  
-
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../depannage/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Index
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-          </ul>
-        </nav>
-      
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    
-    
-    
-    
-      
-      
-        
-      
-    
-    
-    <li class="md-nav__item md-nav__item--nested">
-      
-        
-        
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
-        
-          
-          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
-            
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Exploitation
-  
-
-    
-  </span>
-  
-  
-
-            <span class="md-nav__icon md-icon"></span>
-          </label>
-        
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_5">
-            <span class="md-nav__icon md-icon"></span>
-            
-  
-    Exploitation
-  
-
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../exploitation/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Index
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-          </ul>
-        </nav>
-      
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    
-    
-    
-    
-      
-      
-        
-      
-    
-    
-    <li class="md-nav__item md-nav__item--nested">
-      
-        
-        
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
-        
-          
-          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
-            
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Incidents
-  
-
-    
-  </span>
-  
-  
-
-            <span class="md-nav__icon md-icon"></span>
-          </label>
-        
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_6">
-            <span class="md-nav__icon md-icon"></span>
-            
-  
-    Incidents
-  
-
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../incidents/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Index
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-          </ul>
-        </nav>
-      
-    </li>
-  
-
     
       
       
@@ -841,9 +287,6 @@
     
       
         
-        
-      
-      
         
       
     
@@ -852,10 +295,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
         
           
-          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="">
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
             
   
   
@@ -873,8 +316,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="true">
-          <label class="md-nav__title" for="__nav_7">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -897,6 +340,8 @@
       <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
       
       
+        
+      
       
         <label class="md-nav__link md-nav__link--active" for="__toc">
           
@@ -905,7 +350,7 @@
   <span class="md-ellipsis">
     
   
-    Fog installation
+    FOG - Installation
   
 
     
@@ -923,7 +368,7 @@
   <span class="md-ellipsis">
     
   
-    Fog installation
+    FOG - Installation
   
 
     
@@ -939,56 +384,14 @@
   
   
   
+    
+  
   
     <label class="md-nav__title" for="__toc">
       <span class="md-nav__icon md-icon"></span>
       Table des matières
     </label>
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#objectif" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        🎯 Objectif
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#portee" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        📦 Portée
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#risques" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        ⚠️ Risques
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#prerequis" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        ✅ Prérequis
-      
-    </span>
-  </a>
-  
-</li>
       
         <li class="md-nav__item">
   <a href="#procedure" class="md-nav__link">
@@ -1003,10 +406,54 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#objectif" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🎯 Objectif
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#portee" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📦 Portée
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#risques" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ⚠️ Risques
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#prerequis" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ✅ Prérequis
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#1-installation-du-serveur-fog" class="md-nav__link">
     <span class="md-ellipsis">
       
-        1. Installation du serveur FOG
+        1) Installation du serveur FOG
       
     </span>
   </a>
@@ -1017,7 +464,7 @@
   <a href="#2-installation-dnsmasq" class="md-nav__link">
     <span class="md-ellipsis">
       
-        2. Installation dnsmasq
+        2) Installation dnsmasq
       
     </span>
   </a>
@@ -1025,10 +472,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#3-creer-le-fichier-de-configuration-fog" class="md-nav__link">
+  <a href="#3-creer-le-fichier-de-configuration-dnsmasq" class="md-nav__link">
     <span class="md-ellipsis">
       
-        3. Créer le fichier de configuration FOG
+        3) Créer le fichier de configuration dnsmasq
       
     </span>
   </a>
@@ -1039,7 +486,7 @@
   <a href="#4-redemarrer-et-activer-dnsmasq" class="md-nav__link">
     <span class="md-ellipsis">
       
-        4. Redémarrer et Activer dnsmasq
+        4) Redémarrer et activer dnsmasq
       
     </span>
   </a>
@@ -1050,7 +497,7 @@
   <a href="#5-verifier-que-le-port-69-tftp-ecoute" class="md-nav__link">
     <span class="md-ellipsis">
       
-        5. Vérifier que le port 69 (TFTP) écoute
+        5) Vérifier que le port 69 (TFTP) écoute
       
     </span>
   </a>
@@ -1061,7 +508,7 @@
   <a href="#6-verifier-que-fog-fournit-bien-les-fichiers-pxe" class="md-nav__link">
     <span class="md-ellipsis">
       
-        6. Vérifier que FOG fournit bien les fichiers PXE
+        6) Vérifier que FOG fournit bien les fichiers PXE
       
     </span>
   </a>
@@ -1072,7 +519,7 @@
   <a href="#7-ouvrir-les-ports-pare-feu-si-actif" class="md-nav__link">
     <span class="md-ellipsis">
       
-        7. Ouvrir les ports pare-feu (si actif)
+        7) Ouvrir les ports pare-feu (si actif)
       
     </span>
   </a>
@@ -1081,39 +528,6 @@
         
       </ul>
     </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#verifications" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        🧪 Vérifications
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#depannage" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        🧯 Dépannage
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#liens-wiki" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        🔗 Liens wiki
-      
-    </span>
-  </a>
   
 </li>
       
@@ -1139,31 +553,15 @@
   
   
   
-    
-    
-    
-    
-      
-      
+    <li class="md-nav__item">
+      <a href="../../exploitation/" class="md-nav__link">
         
-      
-    
-    
-    <li class="md-nav__item md-nav__item--nested">
-      
-        
-        
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
-        
-          
-          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
-            
   
   
   <span class="md-ellipsis">
     
   
-    Scripts
+    Exploitation
   
 
     
@@ -1171,22 +569,94 @@
   
   
 
-            <span class="md-nav__icon md-icon"></span>
-          </label>
-        
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_8">
-            <span class="md-nav__icon md-icon"></span>
-            
-  
-    Scripts
+      </a>
+    </li>
   
 
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
-              
-                
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../depannage/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dépannage
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../checklists/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Checklists
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../incidents/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Incidents
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
   
   
   
@@ -1199,7 +669,7 @@
   <span class="md-ellipsis">
     
   
-    Index
+    Scripts
   
 
     
@@ -1208,14 +678,6 @@
   
 
       </a>
-    </li>
-  
-
-              
-            
-          </ul>
-        </nav>
-      
     </li>
   
 
@@ -1237,56 +699,14 @@
   
   
   
+    
+  
   
     <label class="md-nav__title" for="__toc">
       <span class="md-nav__icon md-icon"></span>
       Table des matières
     </label>
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#objectif" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        🎯 Objectif
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#portee" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        📦 Portée
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#risques" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        ⚠️ Risques
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#prerequis" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        ✅ Prérequis
-      
-    </span>
-  </a>
-  
-</li>
       
         <li class="md-nav__item">
   <a href="#procedure" class="md-nav__link">
@@ -1301,10 +721,54 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#objectif" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🎯 Objectif
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#portee" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📦 Portée
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#risques" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ⚠️ Risques
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#prerequis" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ✅ Prérequis
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#1-installation-du-serveur-fog" class="md-nav__link">
     <span class="md-ellipsis">
       
-        1. Installation du serveur FOG
+        1) Installation du serveur FOG
       
     </span>
   </a>
@@ -1315,7 +779,7 @@
   <a href="#2-installation-dnsmasq" class="md-nav__link">
     <span class="md-ellipsis">
       
-        2. Installation dnsmasq
+        2) Installation dnsmasq
       
     </span>
   </a>
@@ -1323,10 +787,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#3-creer-le-fichier-de-configuration-fog" class="md-nav__link">
+  <a href="#3-creer-le-fichier-de-configuration-dnsmasq" class="md-nav__link">
     <span class="md-ellipsis">
       
-        3. Créer le fichier de configuration FOG
+        3) Créer le fichier de configuration dnsmasq
       
     </span>
   </a>
@@ -1337,7 +801,7 @@
   <a href="#4-redemarrer-et-activer-dnsmasq" class="md-nav__link">
     <span class="md-ellipsis">
       
-        4. Redémarrer et Activer dnsmasq
+        4) Redémarrer et activer dnsmasq
       
     </span>
   </a>
@@ -1348,7 +812,7 @@
   <a href="#5-verifier-que-le-port-69-tftp-ecoute" class="md-nav__link">
     <span class="md-ellipsis">
       
-        5. Vérifier que le port 69 (TFTP) écoute
+        5) Vérifier que le port 69 (TFTP) écoute
       
     </span>
   </a>
@@ -1359,7 +823,7 @@
   <a href="#6-verifier-que-fog-fournit-bien-les-fichiers-pxe" class="md-nav__link">
     <span class="md-ellipsis">
       
-        6. Vérifier que FOG fournit bien les fichiers PXE
+        6) Vérifier que FOG fournit bien les fichiers PXE
       
     </span>
   </a>
@@ -1370,7 +834,7 @@
   <a href="#7-ouvrir-les-ports-pare-feu-si-actif" class="md-nav__link">
     <span class="md-ellipsis">
       
-        7. Ouvrir les ports pare-feu (si actif)
+        7) Ouvrir les ports pare-feu (si actif)
       
     </span>
   </a>
@@ -1379,39 +843,6 @@
         
       </ul>
     </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#verifications" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        🧪 Vérifications
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#depannage" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        🧯 Dépannage
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#liens-wiki" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        🔗 Liens wiki
-      
-    </span>
-  </a>
   
 </li>
       
@@ -1432,53 +863,56 @@
 
 
 
-  <h1>Fog installation</h1>
-
-<h2 id="objectif">🎯 Objectif</h2>
-<p>Installer FOG Project sur un serveur Linux pour le déploiement d’images.</p>
-<h2 id="portee">📦 Portée</h2>
-<p>Serveur Debian / Ubuntu utilisé comme serveur PXE.</p>
-<h2 id="risques">⚠️ Risques</h2>
-<ul>
-<li>Mauvaise configuration DHCP</li>
-<li>Conflit avec serveur DHCP existant</li>
-</ul>
-<h2 id="prerequis">✅ Prérequis</h2>
-<ul>
-<li>Serveur Debian ou Ubuntu</li>
-<li>Accès root</li>
-<li>IP fixe configurée
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>nano<span class="w"> </span>/etc/netplan/01-netcfg.yaml
-</code></pre></div></li>
-<li>Accès Internet</li>
-</ul>
+<h1 id="fog-installation">FOG - Installation</h1>
 <h2 id="procedure">🧭 Procédure</h2>
-<h3 id="1-installation-du-serveur-fog">1. Installation du serveur FOG</h3>
+<h3 id="objectif">🎯 Objectif</h3>
+<p>Installer FOG Project sur un serveur Linux pour le déploiement d’images.</p>
+<h3 id="portee">📦 Portée</h3>
+<p>Serveur Debian / Ubuntu utilisé comme serveur PXE.</p>
+<h3 id="risques">⚠️ Risques</h3>
+<ul>
+<li>Mauvaise configuration DHCP  </li>
+<li>Conflit avec serveur DHCP existant  </li>
+</ul>
+<h3 id="prerequis">✅ Prérequis</h3>
+<ul>
+<li>Serveur Debian ou Ubuntu  </li>
+<li>Accès root  </li>
+<li>IP fixe configurée  </li>
+<li>Accès Internet  </li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">IP fixe (exemple netplan)</p>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>nano<span class="w"> </span>/etc/netplan/01-netcfg.yaml
+</code></pre></div>
+</div>
+<hr />
+<h3 id="1-installation-du-serveur-fog">1) Installation du serveur FOG</h3>
 <div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>apt<span class="w"> </span>update<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>sudo<span class="w"> </span>apt<span class="w"> </span>full-upgrade<span class="w"> </span>-y
-sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>curl<span class="w"> </span>-y
-sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>git<span class="w"> </span>-y
+sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>curl<span class="w"> </span>git
 </code></pre></div>
 <div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>fogproject-stable/bin
 sudo<span class="w"> </span>./installfog.sh
 </code></pre></div>
-<p>Au lancement de l'installateur FOG, une Fenêtre s'affiche :</p>
+<p>Au lancement de l'installateur FOG, une fenêtre s'affiche :</p>
 <p><img alt="[Procédure]" src="../../assets/png.png" /></p>
-<p>Une fois le processus terminé, on doit se connecter, à l'aide d'un navigateur, à l'adresse indiqué. Exemple :</p>
-<p>http://192.168.1.1/fog/management</p>
+<p>Une fois le processus terminé, se connecter via navigateur à l’adresse indiquée :</p>
+<p>http://XXX.XXX.XXX.XXX/fog/management</p>
 <div class="admonition danger">
 <p class="admonition-title">ATTENTION</p>
 <p>Ne pas faire "Entrée" tout de suite.<br />
 Lancer d’abord le navigateur pour initialiser la base de données.</p>
 </div>
-<h3 id="2-installation-dnsmasq">2. Installation dnsmasq</h3>
+<h3 id="2-installation-dnsmasq">2) Installation dnsmasq</h3>
 <div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>apt<span class="w"> </span>update<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>sudo<span class="w"> </span>apt<span class="w"> </span>full-upgrade<span class="w"> </span>-y
-sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>dnsmasq<span class="w"> </span>-y
+sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>dnsmasq
 dnsmasq<span class="w"> </span>--version
 </code></pre></div>
-<h3 id="3-creer-le-fichier-de-configuration-fog">3. Créer le fichier de configuration FOG</h3>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>nano<span class="w"> </span>/etc/dnsmasq.d/ltsp.conf
-</code></pre></div>
-<p>⚠️ <strong>Remplace <code>192.168.1.66</code> par l’IP de TON serveur FOG</strong> <strong>et le dhcp-Range</strong>
+<h3 id="3-creer-le-fichier-de-configuration-dnsmasq">3) Créer le fichier de configuration dnsmasq</h3>
+<div class="admonition warning">
+<p class="admonition-title">À adapter</p>
+<p>Remplace 192.168.1.66 par l’IP de ton serveur FOG et ajuste le dhcp-range.</p>
+</div>
 <div class="highlight"><pre><span></span><code><span class="c1"># ================================</span>
 <span class="c1"># DNSMASQ ProxyDHCP pour FOG</span>
 <span class="c1"># Debian 13</span>
@@ -1490,7 +924,7 @@ dnsmasq<span class="w"> </span>--version
 <span class="c1"># Logs DHCP</span>
 log-dhcp
 
-<span class="c1"># Activer ou Désactiver TFTP</span>
+<span class="c1"># Activer / Désactiver TFTP</span>
 <span class="c1">#enable-tftp</span>
 <span class="c1">#tftp-root=/tftpboot</span>
 
@@ -1520,48 +954,38 @@ pxe-service<span class="o">=</span>BC_EFI,<span class="s2">&quot;Boot to FOG UEF
 
 <span class="c1"># Mode ProxyDHCP</span>
 dhcp-range<span class="o">=</span><span class="m">192</span>.168.1.0,proxy
-</code></pre></div></p>
-<h3 id="4-redemarrer-et-activer-dnsmasq">4. Redémarrer et Activer dnsmasq</h3>
+</code></pre></div>
+<h3 id="4-redemarrer-et-activer-dnsmasq">4) Redémarrer et activer dnsmasq</h3>
 <div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>systemctl<span class="w"> </span>restart<span class="w"> </span>dnsmasq
 sudo<span class="w"> </span>systemctl<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>dnsmasq
 </code></pre></div>
-<h3 id="5-verifier-que-le-port-69-tftp-ecoute">5. Vérifier que le port 69 (TFTP) écoute</h3>
+<h3 id="5-verifier-que-le-port-69-tftp-ecoute">5) Vérifier que le port 69 (TFTP) écoute</h3>
 <div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>ss<span class="w"> </span>-anu<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>:69
 </code></pre></div>
-<p>Résultat attendu :</p>
 <div class="highlight"><pre><span></span><code>UNCONN<span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span>.0.0.0:69
 </code></pre></div>
-<h3 id="6-verifier-que-fog-fournit-bien-les-fichiers-pxe">6. Vérifier que FOG fournit bien les fichiers PXE</h3>
+<h3 id="6-verifier-que-fog-fournit-bien-les-fichiers-pxe">6) Vérifier que FOG fournit bien les fichiers PXE</h3>
 <div class="highlight"><pre><span></span><code>ls<span class="w"> </span>/tftpboot
 </code></pre></div>
-<h3 id="7-ouvrir-les-ports-pare-feu-si-actif">7. Ouvrir les ports pare-feu (si actif)</h3>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>ufw<span class="w"> </span>-y
+<h3 id="7-ouvrir-les-ports-pare-feu-si-actif">7) Ouvrir les ports pare-feu (si actif)</h3>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>ufw
 sudo<span class="w"> </span>ufw<span class="w"> </span>allow<span class="w"> </span><span class="m">69</span>/udp
 sudo<span class="w"> </span>ufw<span class="w"> </span>allow<span class="w"> </span><span class="m">4011</span>/udp
 sudo<span class="w"> </span>ufw<span class="w"> </span>allow<span class="w"> </span><span class="m">80</span>
 sudo<span class="w"> </span>ufw<span class="w"> </span>allow<span class="w"> </span><span class="m">443</span>
 sudo<span class="w"> </span>ufw<span class="w"> </span>reload
 </code></pre></div>
-<h2 id="verifications">🧪 Vérifications</h2>
-<ol>
-<li>Démarre un PC client</li>
-<li>Boot réseau (PXE)</li>
-<li>Tu dois voir :</li>
-</ol>
-<p><strong>Booting FOG Client</strong><br />
-<strong>Menu iPXE FOG</strong></p>
-<h2 id="depannage">🧯 Dépannage</h2>
-<h2 id="liens-wiki">🔗 Liens wiki</h2>
+<p>🧪 Vérifications finales</p>
+<p>Démarrer un PC client</p>
+<p>Boot réseau (PXE)</p>
+<p>Vérifier apparition :</p>
+<p>Booting FOG Client</p>
+<p>Menu iPXE FOG</p>
+<p>🔗 Liens utiles</p>
 <ul>
-<li>
-<p>Parent : [[Index - Installations]]</p>
-</li>
-<li>
-<p>Liés : [[...]]</p>
-</li>
+<li>🌐 <a href="https://docs.fogproject.org/en/latest/">Documentation officielle FOG</a></li>
+<li>💻 <a href="https://github.com/MilesChristi/runbook">Dépôt GitHub du Runbook</a></li>
 </ul>
-<p>🌐 <strong>Documentation officielle FOG Project :</strong><br />
-<a href="https://docs.fogproject.org/en/latest/">https://docs.fogproject.org/en/latest/</a></p>
 
 
 
@@ -1617,7 +1041,7 @@ sudo<span class="w"> </span>ufw<span class="w"> </span>reload
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "search.highlight", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copi\u00e9 dans le presse-papier", "clipboard.copy": "Copier dans le presse-papier", "search.result.more.one": "1 de plus sur cette page", "search.result.more.other": "# de plus sur cette page", "search.result.none": "Aucun document trouv\u00e9", "search.result.one": "1 document trouv\u00e9", "search.result.other": "# documents trouv\u00e9s", "search.result.placeholder": "Taper pour d\u00e9marrer la recherche", "search.result.term.missing": "Non trouv\u00e9", "select.version": "S\u00e9lectionner la version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.instant", "navigation.tracking", "navigation.sections", "navigation.top", "navigation.expand", "toc.follow", "search.highlight", "search.suggest", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copi\u00e9 dans le presse-papier", "clipboard.copy": "Copier dans le presse-papier", "search.result.more.one": "1 de plus sur cette page", "search.result.more.other": "# de plus sur cette page", "search.result.none": "Aucun document trouv\u00e9", "search.result.one": "1 document trouv\u00e9", "search.result.other": "# documents trouv\u00e9s", "search.result.placeholder": "Taper pour d\u00e9marrer la recherche", "search.result.term.missing": "Non trouv\u00e9", "select.version": "S\u00e9lectionner la version"}, "version": null}</script>
     
     
       <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
