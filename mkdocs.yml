@@ -6,6 +6,7 @@ site_url: https://mileschristi.github.io/runbook/
 theme:
   name: material
   language: fr
+  custom_dir: docs/overrides
   logo: assets/logo.png
   favicon: assets/favicon.png
   palette:
@@ -13,7 +14,6 @@ theme:
       primary: grey
       accent: light blue
   features:
-    - navigation.instant
     - navigation.tracking
     - navigation.sections
     - navigation.top
