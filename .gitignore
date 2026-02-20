@@ -1,0 +1,11 @@
+# build output
+site/
+
+# python venv
+.venv/
+__pycache__/
+*.pyc
+
+# OS
+.DS_Store
+Thumbs.db
