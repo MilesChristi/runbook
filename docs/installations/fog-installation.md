@@ -1,33 +1,35 @@
-
-
-
-## 🎯 Objectif
-Installer FOG Project sur un serveur Linux pour le déploiement d’images.
-
-## 📦 Portée
-Serveur Debian / Ubuntu utilisé comme serveur PXE.
-
-## ⚠️ Risques
-- Mauvaise configuration DHCP
-- Conflit avec serveur DHCP existant
-
-## ✅ Prérequis
-- Serveur Debian ou Ubuntu
-- Accès root
-- IP fixe configurée
-```bash
-sudo nano /etc/netplan/01-netcfg.yaml
-```
-- Accès Internet
+# FOG - Installation
 
 ## 🧭 Procédure
 
-### 1. Installation du serveur FOG
+### 🎯 Objectif
+Installer FOG Project sur un serveur Linux pour le déploiement d’images.
+
+### 📦 Portée
+Serveur Debian / Ubuntu utilisé comme serveur PXE.
+
+### ⚠️ Risques
+- Mauvaise configuration DHCP  
+- Conflit avec serveur DHCP existant  
+
+### ✅ Prérequis
+- Serveur Debian ou Ubuntu  
+- Accès root  
+- IP fixe configurée  
+- Accès Internet  
+
+!!! note "IP fixe (exemple netplan)"
+    ```bash
+    sudo nano /etc/netplan/01-netcfg.yaml
+    ```
+
+---
+
+### 1) Installation du serveur FOG
 
 ```bash
 sudo apt update && sudo apt full-upgrade -y
-sudo apt install curl -y
-sudo apt install git -y
+sudo apt install -y curl git
 ```
 
 ```bash
@@ -35,35 +37,33 @@ cd fogproject-stable/bin
 sudo ./installfog.sh
 ```
 
-Au lancement de l'installateur FOG, une Fenêtre s'affiche :
+Au lancement de l'installateur FOG, une fenêtre s'affiche :
 
 ![[Procédure]](../assets/png.png)
 
-Une fois le processus terminé, on doit se connecter, à l'aide d'un navigateur, à l'adresse indiqué. Exemple :
+Une fois le processus terminé, se connecter via navigateur à l’adresse indiquée :
 
-http://192.168.1.1/fog/management
-
+http://XXX.XXX.XXX.XXX/fog/management
 
 !!! danger "ATTENTION"
     Ne pas faire "Entrée" tout de suite.  
     Lancer d’abord le navigateur pour initialiser la base de données.
 
-### 2. Installation dnsmasq
+### 2) Installation dnsmasq
 
 ```bash
 sudo apt update && sudo apt full-upgrade -y
-sudo apt install dnsmasq -y
+sudo apt install -y dnsmasq
 dnsmasq --version
 ```
 
-### 3. Créer le fichier de configuration FOG
 
-```bash
-sudo nano /etc/dnsmasq.d/ltsp.conf
-```
+### 3) Créer le fichier de configuration dnsmasq
 
-⚠️ **Remplace `192.168.1.66` par l’IP de TON serveur FOG** **et le dhcp-Range**
-```bash
+!!! warning "À adapter"
+	Remplace 192.168.1.66 par l’IP de ton serveur FOG et ajuste le dhcp-range.
+
+```bash	
 # ================================
 # DNSMASQ ProxyDHCP pour FOG
 # Debian 13
@@ -75,7 +75,7 @@ port=0
 # Logs DHCP
 log-dhcp
 
-# Activer ou Désactiver TFTP
+# Activer / Désactiver TFTP
 #enable-tftp
 #tftp-root=/tftpboot
 
@@ -105,38 +105,35 @@ pxe-service=BC_EFI,"Boot to FOG UEFI PXE-BC",ipxe.efi
 
 # Mode ProxyDHCP
 dhcp-range=192.168.1.0,proxy
-
 ```
 
-### 4. Redémarrer et Activer dnsmasq
+### 4) Redémarrer et activer dnsmasq
 
 ```bash
 sudo systemctl restart dnsmasq
 sudo systemctl enable dnsmasq
 ```
 
-### 5. Vérifier que le port 69 (TFTP) écoute
+### 5) Vérifier que le port 69 (TFTP) écoute
 
-```bash 
+```bash
 sudo ss -anu | grep :69
 ```
 
-Résultat attendu :
-
-```bash 
+```bash
 UNCONN 0 0 0.0.0.0:69
 ```
 
-### 6. Vérifier que FOG fournit bien les fichiers PXE
+### 6) Vérifier que FOG fournit bien les fichiers PXE
 
-```bash 
+```bash
 ls /tftpboot
 ```
 
-### 7. Ouvrir les ports pare-feu (si actif)
+### 7) Ouvrir les ports pare-feu (si actif)
 
-```bash 
-sudo apt install ufw -y
+```bash
+sudo apt install -y ufw
 sudo ufw allow 69/udp
 sudo ufw allow 4011/udp
 sudo ufw allow 80
@@ -144,23 +141,20 @@ sudo ufw allow 443
 sudo ufw reload
 ```
 
-## 🧪 Vérifications
+🧪 Vérifications finales
 
-1. Démarre un PC client
-2. Boot réseau (PXE)
-3. Tu dois voir :
+Démarrer un PC client
 
- **Booting FOG Client**  
- **Menu iPXE FOG**
+Boot réseau (PXE)
 
-## 🧯 Dépannage
+Vérifier apparition :
 
-## 🔗 Liens wiki
+Booting FOG Client
 
-- Parent : [[Index - Installations]]
-    
-- Liés : [[...]]
+Menu iPXE FOG
 
-🌐 **Documentation officielle FOG Project :**  
-[https://docs.fogproject.org/en/latest/](https://docs.fogproject.org/en/latest/)
+🔗 Liens utiles
+
+- 🌐 [Documentation officielle FOG](https://docs.fogproject.org/en/latest/)
+- 💻 [Dépôt GitHub du Runbook](https://github.com/MilesChristi/runbook)
 

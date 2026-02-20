@@ -1,4 +1,4 @@
-site_name: SysAdmin Runbook
+site_name: IT Operations Runbook
 site_description: Operational runbook for infrastructure and deployment
 site_author: MilesChristi
 site_url: https://mileschristi.github.io/runbook/
@@ -6,14 +6,24 @@ site_url: https://mileschristi.github.io/runbook/
 theme:
   name: material
   language: fr
+  logo: assets/logo.png
+  favicon: assets/favicon.png
+  palette:
+    - scheme: default
+      primary: grey
+      accent: light blue
   features:
-    - navigation.tabs
+    - navigation.instant
+    - navigation.tracking
     - navigation.sections
     - navigation.top
+    - navigation.expand
+    - toc.follow
     - search.highlight
+    - search.suggest
     - content.code.copy
 
-  nav:
+nav:
   - Accueil: index.md
   - Architecture: architecture/index.md
   - Installations:
@@ -28,3 +38,10 @@ markdown_extensions:
   - admonition
   - pymdownx.details
   - pymdownx.superfences
+  - pymdownx.tabbed
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.emoji
+
+extra_css:
+  - stylesheets/extra.css
