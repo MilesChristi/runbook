@@ -1,3 +1,56 @@
 .md-header__button.md-logo img {
   height: 110px;
 }
+
+/* ===== Footer Pro ===== */
+
+.md-footer-pro {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 24px;
+  background: #263238;   /* blue-grey foncé */
+  color: #ffffff;
+  font-size: 0.85rem;
+}
+
+.md-footer-pro a {
+  color: #90caf9;
+  text-decoration: none;
+}
+
+.md-footer-pro a:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 900px) {
+  .md-footer-pro {
+    flex-direction: column;
+    gap: 6px;
+    text-align: center;
+  }
+}
+
+/* ===== Breadcrumbs (MilesChristi) ===== */
+.mc-breadcrumbs{
+  font-size: .85rem;
+  opacity: .85;
+  margin: .2rem 0 1rem 0;
+}
+
+.mc-breadcrumbs a{
+  text-decoration: none;
+}
+
+.mc-breadcrumbs a:hover{
+  text-decoration: underline;
+}
+
+.mc-sep{
+  margin: 0 .5rem;
+  opacity: .6;
+}
+
+.mc-current{
+  font-weight: 600;
+}

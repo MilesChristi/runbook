@@ -1,0 +1,13 @@
+<nav class="mc-breadcrumbs" aria-label="Breadcrumb">
+  <a href="{{ nav.homepage.url | url }}">Accueil</a>
+
+  {% if page and page.ancestors %}
+    {% for p in page.ancestors %}
+      <span class="mc-sep">›</span>
+      <a href="{{ p.url | url }}">{{ p.title }}</a>
+    {% endfor %}
+  {% endif %}
+
+  <span class="mc-sep">›</span>
+  <span class="mc-current">{{ page.title }}</span>
+</nav>
