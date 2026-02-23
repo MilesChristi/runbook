@@ -30,8 +30,7 @@ jobs:
     
       - name: Generate announcements
         env:
-          BEFORE_SHA: ${{ github.event.before }}
-          AFTER_SHA: ${{ github.sha }}
+          ANNOUNCE_LOOKBACK_DAYS: "30"
         run: python tools/generate_announce.py
 
       - name: Show generated announce.html
