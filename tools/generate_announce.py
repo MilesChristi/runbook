@@ -1,132 +1,102 @@
+#!/usr/bin/env python3
+from __future__ import annotations
+
+import os
+import re
 import subprocess
 from datetime import datetime
 from pathlib import Path
+from typing import Iterable
 
-ROOT = Path(__file__).resolve().parents[1]
-DOCS = ROOT / "docs"
-OUT = DOCS / "overrides" / "partials" / "announce.html"
+REPO_ROOT = Path(__file__).resolve().parents[1]
+OUT_FILE = REPO_ROOT / "docs" / "overrides" / "partials" / "announce.html"
 
-MAX_ITEMS = 6
+DATE_RE = re.compile(r"^\d{4}-\d{2}-\d{2}$")
 
-EXCLUDE = {
-    "docs/index.md",
-}
-EXCLUDE_PREFIXES = (
-    "docs/templates/",
-    "docs/overrides/",
-)
 
 def run(cmd: list[str]) -> str:
-    return subprocess.check_output(cmd, cwd=ROOT, text=True, encoding="utf-8").strip()
+    p = subprocess.run(cmd, cwd=REPO_ROOT, capture_output=True, text=True)
+    if p.returncode != 0:
+        raise RuntimeError(f"Command failed: {' '.join(cmd)}\n{p.stderr}")
+    return p.stdout.strip()
+
 
 def is_doc(path: str) -> bool:
-    if not path.startswith("docs/") or not path.endswith(".md"):
-        return False
-    if path in EXCLUDE:
-        return False
-    if any(path.startswith(p) for p in EXCLUDE_PREFIXES):
-        return False
-    return True
+    # uniquement les docs markdown
+    return path.startswith("docs/") and path.endswith(".md")
+
 
 def md_to_url(md_path: str) -> str:
-    # mkdocs/material style: foo/bar.md -> foo/bar/
-    rel = md_path.replace("docs/", "").replace(".md", "/")
-    if rel == "index/":
-        return "./"
-    # dossier/index.md -> dossier/
-    rel = rel.replace("/index/", "/")
-    return "./" + rel
+    # docs/installations/fog-installation.md -> /runbook/installations/fog-installation/
+    # docs/index.md -> /runbook/
+    rel = md_path.removeprefix("docs/").removesuffix(".md")
+    if rel == "index":
+        return "/runbook/"
+    return f"/runbook/{rel}/"
+
 
 def title_from_file(md_path: str) -> str:
-    p = ROOT / md_path
+    p = REPO_ROOT / md_path
     if not p.exists():
-        return md_path
+        return Path(md_path).stem.replace("-", " ").title()
+
     for line in p.read_text(encoding="utf-8", errors="ignore").splitlines():
         line = line.strip()
         if line.startswith("# "):
             return line[2:].strip()
-    return p.stem
+    return Path(md_path).stem.replace("-", " ").title()
 
-def main():
-    # Liste des changements récents (derniers commits) : ajoute/modify/rename
-    # Format : <date ISO>|<status>|<path>
-    log = run([
-        "git", "log", "-n", "30",
-        "--name-status",
-        "--date=short",
-        "--pretty=format:%ad"
-    ])
 
-    items = []
-    current_date = None
+def changed_docs_from_push() -> list[str]:
+    """
+    GitHub Actions : on passe BEFORE_SHA et AFTER_SHA depuis le workflow
+    (github.event.before et github.sha).
+    """
+    before = os.getenv("BEFORE_SHA")
+    after = os.getenv("AFTER_SHA") or os.getenv("GITHUB_SHA")
 
-    for line in log.splitlines():
-        line = line.strip()
-        if not line:
-            continue
+    if before and after and before != "0000000000000000000000000000000000000000":
+        diff = run(["git", "diff", "--name-only", f"{before}..{after}"])
+        files = [f.strip() for f in diff.splitlines() if f.strip()]
+        return sorted({f for f in files if is_doc(f)})
 
-        # date seule (ex: 2026-02-23)
-        if len(line) == 10 and line[4] == "-" and line[7] == "-":
-            current_date = line
-            continue
+    # Fallback local/si env absente : dernier commit
+    diff = run(["git", "diff", "--name-only", "HEAD~1..HEAD"])
+    files = [f.strip() for f in diff.splitlines() if f.strip()]
+    return sorted({f for f in files if is_doc(f)})
 
-        # status + path(s)
-        parts = line.split("\t")
-        if len(parts) >= 2 and current_date:
-            status = parts[0]
-            path = parts[-1]  # pour R100 old new -> prends new
-            if status[0] in ("A", "M", "R") and is_doc(path):
-                title = title_from_file(path)
-                url = md_to_url(path)
-                items.append((current_date, title, url))
 
-    # dédupe par URL en gardant le plus récent
-    seen = set()
-    deduped = []
-    for d, t, u in items:
-        if u in seen:
-            continue
-        seen.add(u)
-        deduped.append((d, t, u))
-        if len(deduped) >= MAX_ITEMS:
-            break
+def render(changed: list[str]) -> str:
+    if not changed:
+        return ""
 
-    if not deduped:
-        html = "<div class='mc-announce'><div class='mc-announce__inner'><div class='mc-announce__label'>NOUVEAUTÉS</div><div class='mc-announce__static'>Aucune mise à jour récente.</div></div></div>"
-        OUT.parent.mkdir(parents=True, exist_ok=True)
-        OUT.write_text(html, encoding="utf-8")
-        return
+    # max 6 liens, sinon c'est illisible
+    changed = changed[:6]
+    items = "\n".join(
+        f'<li><a href="{md_to_url(f)}">{title_from_file(f)}</a></li>' for f in changed
+    )
 
-    def render_item(d, t, u):
-        return f"<span class='mc-announce__item'>🆕 {d} — <a href='{u}'>{t}</a></span>"
+    today = datetime.now().strftime("%d/%m/%Y")
 
-    # dupliquer pour boucle fluide (marquee)
-    line_items = []
-    for d, t, u in deduped:
-        line_items.append(render_item(d, t, u))
-        line_items.append("<span class='mc-announce__sep'>•</span>")
-    track = "\n".join(line_items + line_items)
-
-    static = " • ".join([f"🆕 {d} — {t}" for d, t, _ in deduped])
-
-    html = f"""<div class="mc-announce" role="status" aria-label="Nouveautés">
+    return f"""<div class="md-banner mc-announce" role="status" aria-label="Maintenance">
   <div class="mc-announce__inner">
-    <div class="mc-announce__label">NOUVEAUTÉS</div>
-
-    <div class="mc-announce__marquee" aria-hidden="true">
-      <div class="mc-announce__track">
-        {track}
-      </div>
-    </div>
-
-    <div class="mc-announce__static" aria-label="Nouveautés (statique)">
-      {static}
-    </div>
+    <strong>⚠️ Maintenance</strong> : certaines procédures ont été mises à jour <span class="mc-announce__date">({today})</span>.
+    <details class="mc-announce__details">
+      <summary>Voir les changements</summary>
+      <ul>
+        {items}
+      </ul>
+    </details>
   </div>
 </div>
 """
-    OUT.parent.mkdir(parents=True, exist_ok=True)
-    OUT.write_text(html, encoding="utf-8")
+
+
+def main() -> None:
+    OUT_FILE.parent.mkdir(parents=True, exist_ok=True)
+    changed = changed_docs_from_push()
+    OUT_FILE.write_text(render(changed), encoding="utf-8")
+
 
 if __name__ == "__main__":
     main()

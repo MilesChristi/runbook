@@ -1,9 +1,7 @@
 name: Documentation
-
 on:
   push:
-    branches:
-      - main
+    branches: [ main ]
 
 permissions:
   contents: read
@@ -15,31 +13,36 @@ jobs:
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
-
     runs-on: ubuntu-latest
 
     steps:
-      # Récupération du repo AVEC historique
+      - uses: actions/configure-pages@v5
+
       - uses: actions/checkout@v5
         with:
           fetch-depth: 0
 
-      - uses: actions/configure-pages@v5
-
       - uses: actions/setup-python@v5
         with:
-          python-version: 3.x
+          python-version: "3.x"
 
-      # Installation Zensical
       - run: pip install zensical
+    
+      - name: Generate announcements
+        env:
+          BEFORE_SHA: ${{ github.event.before }}
+          AFTER_SHA: ${{ github.sha }}
+        run: python tools/generate_announce.py
 
-      # Génération automatique du bandeau nouveautés
-      - run: python tools/generate_announce.py
+      - name: Show generated announce.html
+        run: |
+          echo "----- announce.html -----"
+          ls -la docs/overrides/partials || true
+          cat docs/overrides/partials/announce.html || true
+          echo "-------------------------"
 
-      # Build du site
       - run: zensical build --clean
 
-      # Upload vers GitHub Pages
       - uses: actions/upload-pages-artifact@v4
         with:
           path: site
