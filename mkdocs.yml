@@ -13,26 +13,40 @@ theme:
     - scheme: default
       primary: grey
       accent: light blue
-  features:
-    - navigation.tracking
-    - navigation.sections
-    - navigation.top
-    - navigation.expand
-    - toc.follow
-    - search.highlight
-    - search.suggest
-    - content.code.copy
+features:
+  - navigation.tracking
+  - navigation.sections
+  - navigation.top
+  # - navigation.expand   <-- doit être absent
+  - toc.follow
+  - search.highlight
+  - search.suggest
+  - content.code.copy
+  - navigation.path
 
 nav:
-  - Accueil: index.md
-  - Architecture: architecture/index.md
-  - Installations:
-      - FOG - Installation: installations/fog-installation.md
-  - Exploitation: exploitation/index.md
-  - Dépannage: depannage/index.md
-  - Checklists: checklists/index.md
-  - Incidents: incidents/index.md
-  - Scripts: scripts/index.md
+  - "Accueil": index.md
+
+  - "Architecture":
+      - "Vue d’ensemble": architecture/index.md
+
+  - "Installations":
+      - "Vue d’ensemble": installations/index.md
+
+  - "Exploitation":
+      - "Vue d’ensemble": exploitation/index.md
+
+  - "Dépannage":
+      - "Vue d’ensemble": depannage/index.md
+
+  - "Checklists":
+      - "Vue d’ensemble": checklists/index.md
+
+  - "Incidents":
+      - "Vue d’ensemble": incidents/index.md
+
+  - "Scripts":
+      - "Vue d’ensemble": scripts/index.md
 
 markdown_extensions:
   - admonition
