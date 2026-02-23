@@ -1,28 +1,48 @@
 name: Documentation
+
 on:
   push:
     branches:
       - main
+
 permissions:
   contents: read
   pages: write
   id-token: write
+
 jobs:
   deploy:
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
+
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/configure-pages@v5
+      # Récupération du repo AVEC historique
       - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+
+      - uses: actions/configure-pages@v5
+
       - uses: actions/setup-python@v5
         with:
           python-version: 3.x
+
+      # Installation Zensical
       - run: pip install zensical
+
+      # Génération automatique du bandeau nouveautés
+      - run: python tools/generate_announce.py
+
+      # Build du site
       - run: zensical build --clean
+
+      # Upload vers GitHub Pages
       - uses: actions/upload-pages-artifact@v4
         with:
           path: site
+
       - uses: actions/deploy-pages@v4
         id: deployment
