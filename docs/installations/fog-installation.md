@@ -439,7 +439,7 @@ Depuis l’interface de démarrage FOG, choisir l’image à déployer à l’ai
 
 en cours ...
 
-test
+TEST01
 
 
 
