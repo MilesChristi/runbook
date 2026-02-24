@@ -1,37 +1,57 @@
-.md-header__button.md-logo img {
-  height: 110px;
+/* =========================================================
+   MilesChristi Runbook — extra.css (clean + pro)
+   ========================================================= */
+
+/* -------------------------
+   Header logo sizing
+   ------------------------- */
+.md-header__button.md-logo img{
+  height: 72px;           /* ajuste si besoin (ex: 90px) */
+  width: auto;
+  max-height: 72px;
 }
 
-/* ===== Footer Pro ===== */
+@media (max-width: 600px){
+  .md-header__button.md-logo img{
+    height: 56px;
+    max-height: 56px;
+  }
+}
 
-.md-footer-pro {
+/* -------------------------
+   Footer Pro
+   ------------------------- */
+.md-footer-pro{
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 12px;
   padding: 12px 24px;
-  background: #263238;   /* blue-grey foncé */
+  background: #263238;   /* bleu-gris foncé */
   color: #ffffff;
   font-size: 0.85rem;
 }
 
-.md-footer-pro a {
+.md-footer-pro a{
   color: #90caf9;
   text-decoration: none;
 }
 
-.md-footer-pro a:hover {
+.md-footer-pro a:hover{
   text-decoration: underline;
 }
 
-@media (max-width: 900px) {
-  .md-footer-pro {
+@media (max-width: 900px){
+  .md-footer-pro{
     flex-direction: column;
-    gap: 6px;
     text-align: center;
+    padding: 12px 16px;
   }
 }
 
-/* ===== Breadcrumbs (MilesChristi) ===== */
+/* -------------------------
+   Breadcrumbs (MilesChristi)
+   ------------------------- */
 .mc-breadcrumbs{
   font-size: .85rem;
   opacity: .85;
@@ -52,119 +72,156 @@
 }
 
 .mc-current{
-  font-weight: 600;
+  font-weight: 700;
 }
 
-/* --- Home cards (premium) --- */
+/* -------------------------
+   Home cards (premium)
+   ------------------------- */
 .mc-cards{
-  display:grid;
+  display: grid;
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
   gap: 14px;
-  margin-top: 10px;
+  margin-top: 12px;
 }
 
 .mc-card{
-  display:block;
+  display: block;
   padding: 14px 16px;
   border-radius: 14px;
   border: 1px solid rgba(0,0,0,.08);
-  background: rgba(255,255,255,.9);
-  text-decoration:none !important;
-  transition: transform .08s ease, box-shadow .08s ease;
+  background: rgba(255,255,255,.92);
+  text-decoration: none !important;
+  transition: transform .12s ease, box-shadow .12s ease, border-color .12s ease;
 }
 
 .mc-card:hover{
   transform: translateY(-1px);
   box-shadow: 0 10px 28px rgba(0,0,0,.10);
+  border-color: rgba(0,0,0,.14);
 }
 
 .mc-card-title{
-  font-weight: 800;
+  font-weight: 900;
   font-size: 1.05rem;
   margin-bottom: 2px;
 }
 
 .mc-card-subtitle{
-  opacity:.72;
+  opacity: .72;
   margin-bottom: 8px;
-  font-size: .9rem;
+  font-size: .90rem;
 }
 
 .mc-card-link{
-  font-weight: 600;
-  font-size: .9rem;
+  font-weight: 750;
+  font-size: .90rem;
 }
 
-/* ===== Top moving banner (announce) ===== */
+/* -------------------------
+   Announce — Bandeau défilant (2 tracks)
+   - Défilement infini sans dupliquer la liste dans le HTML
+   - Pause au survol
+   - Fallback accessibilité
+   ------------------------- */
 .mc-announce{
   padding: 6px 0;
   background: #111827;
   color: #e5e7eb;
   border-bottom: 1px solid rgba(255,255,255,.08);
 }
+
 .mc-announce__inner{
   display: flex;
   align-items: center;
   gap: 12px;
   padding: 0 16px;
 }
+
 .mc-announce__label{
   font-size: .72rem;
   letter-spacing: .08em;
-  font-weight: 800;
-  padding: 3px 8px;
+  font-weight: 900;
+  padding: 3px 10px;
   border-radius: 999px;
   background: rgba(255,255,255,.10);
   white-space: nowrap;
 }
+
 .mc-announce__marquee{
   overflow: hidden;
   white-space: nowrap;
   flex: 1;
+  position: relative;
+  /* fondu sur les bords */
   mask-image: linear-gradient(to right, transparent, #000 7%, #000 93%, transparent);
+  min-height: 24px; /* évite un saut de hauteur */
 }
+
+/* Track commun */
 .mc-announce__track{
+  position: absolute;
+  left: 0;
+  top: 0;
   display: inline-flex;
   align-items: center;
   gap: 10px;
   will-change: transform;
-  animation: mc-marquee 22s linear infinite;
+  animation: mc-marquee-a 22s linear infinite; /* vitesse */
 }
-.mc-announce__item{ font-size: .85rem; white-space: nowrap; }
-.mc-announce__item a{ color: #93c5fd; text-decoration: none; }
-.mc-announce__item a:hover{ text-decoration: underline; }
-.mc-announce__sep{ opacity: .5; }
-@keyframes mc-marquee{ from{transform:translateX(0)} to{transform:translateX(-50%)} }
-.mc-announce:hover .mc-announce__track{ animation-play-state: paused; }
+
+/* Track B se décale */
+.mc-announce__track--b{
+  animation-name: mc-marquee-b;
+}
+
+/* Items */
+.mc-announce__item{
+  font-size: .88rem;
+  white-space: nowrap;
+}
+
+.mc-announce__item a{
+  color: #93c5fd;
+  text-decoration: none;
+}
+
+.mc-announce__item a:hover{
+  text-decoration: underline;
+}
+
+.mc-announce__sep{
+  opacity: .5;
+}
+
+/* Track A : arrive de la droite -> sort à gauche */
+@keyframes mc-marquee-a{
+  from{ transform: translateX(100%); }
+  to  { transform: translateX(-100%); }
+}
+
+/* Track B : suit derrière (décalage) */
+@keyframes mc-marquee-b{
+  from{ transform: translateX(0%); }
+  to  { transform: translateX(-200%); }
+}
+
+/* Pause au survol */
+.mc-announce:hover .mc-announce__track{
+  animation-play-state: paused;
+}
+
+/* Fallback accessibilité */
+.mc-announce__static{
+  display: none;
+}
+
 @media (prefers-reduced-motion: reduce){
-  .mc-announce__marquee{ display:none; }
-  .mc-announce__static{ display:block; font-size:.85rem; opacity:.95; }
+  .mc-announce__marquee{ display: none; }
+  .mc-announce__static{
+    display: block;
+    font-size: .9rem;
+    opacity: .95;
+  }
+  .mc-announce__track{ animation: none; }
 }
-.mc-announce__static{ display:none; }
-
-/* Announce (Nouveautés) */
-.mc-announce .mc-announce__inner{
-  padding: 10px 0;
-  font-size: 0.95rem;
-}
-
-.mc-announce details{
-  margin-top: 8px;
-}
-
-.mc-announce summary{
-  cursor: pointer;
-  font-weight: 700;
-}
-
-.mc-badge{
-  display: inline-block;
-  margin-left: 8px;
-  padding: 1px 8px;
-  border-radius: 999px;
-  font-size: 0.75rem;
-  font-weight: 800;
-  opacity: 0.8;
-  border: 1px solid rgba(0,0,0,.15);
-}
-
