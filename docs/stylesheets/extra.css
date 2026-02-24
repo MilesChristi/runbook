@@ -6,7 +6,7 @@
    Header logo sizing
    ------------------------- */
 .md-header__button.md-logo img{
-  height: 72px;           /* ajuste si besoin (ex: 90px) */
+  height: 72px;
   width: auto;
   max-height: 72px;
 }
@@ -27,7 +27,7 @@
   align-items: center;
   gap: 12px;
   padding: 12px 24px;
-  background: #263238;   /* bleu-gris foncé */
+  background: #263238;
   color: #ffffff;
   font-size: 0.85rem;
 }
@@ -58,22 +58,11 @@
   margin: .2rem 0 1rem 0;
 }
 
-.mc-breadcrumbs a{
-  text-decoration: none;
-}
+.mc-breadcrumbs a{ text-decoration: none; }
+.mc-breadcrumbs a:hover{ text-decoration: underline; }
 
-.mc-breadcrumbs a:hover{
-  text-decoration: underline;
-}
-
-.mc-sep{
-  margin: 0 .5rem;
-  opacity: .6;
-}
-
-.mc-current{
-  font-weight: 700;
-}
+.mc-sep{ margin: 0 .5rem; opacity: .6; }
+.mc-current{ font-weight: 700; }
 
 /* -------------------------
    Home cards (premium)
@@ -101,29 +90,15 @@
   border-color: rgba(0,0,0,.14);
 }
 
-.mc-card-title{
-  font-weight: 900;
-  font-size: 1.05rem;
-  margin-bottom: 2px;
-}
+.mc-card-title{ font-weight: 900; font-size: 1.05rem; margin-bottom: 2px; }
+.mc-card-subtitle{ opacity: .72; margin-bottom: 8px; font-size: .90rem; }
+.mc-card-link{ font-weight: 750; font-size: .90rem; }
 
-.mc-card-subtitle{
-  opacity: .72;
-  margin-bottom: 8px;
-  font-size: .90rem;
-}
-
-.mc-card-link{
-  font-weight: 750;
-  font-size: .90rem;
-}
-
-/* -------------------------
-   Announce — Bandeau défilant (2 tracks)
-   - Défilement infini sans dupliquer la liste dans le HTML
-   - Pause au survol
-   - Fallback accessibilité
-   ------------------------- */
+/* =========================================================
+   Announce — Bandeau défilant (marquee)
+   - 1 item : 1 track + gap
+   - 2+ items : 2 tracks a/b (relay)
+   ========================================================= */
 .mc-announce{
   padding: 6px 0;
   background: #111827;
@@ -148,17 +123,24 @@
   white-space: nowrap;
 }
 
+/* Heure */
+.mc-announce__stamp{
+  font-size: .82rem;
+  opacity: .85;
+  white-space: nowrap;
+}
+
+/* Marquee container */
 .mc-announce__marquee{
   overflow: hidden;
   white-space: nowrap;
   flex: 1;
   position: relative;
-  /* fondu sur les bords */
+  min-height: 24px;
   mask-image: linear-gradient(to right, transparent, #000 7%, #000 93%, transparent);
-  min-height: 24px; /* évite un saut de hauteur */
 }
 
-/* Track commun */
+/* Track base (commun) */
 .mc-announce__track{
   position: absolute;
   left: 0;
@@ -167,12 +149,6 @@
   align-items: center;
   gap: 10px;
   will-change: transform;
-  animation: mc-marquee-a 22s linear infinite; /* vitesse */
-}
-
-/* Track B se décale */
-.mc-announce__track--b{
-  animation-name: mc-marquee-b;
 }
 
 /* Items */
@@ -185,13 +161,25 @@
   color: #93c5fd;
   text-decoration: none;
 }
+.mc-announce__item a:hover{ text-decoration: underline; }
 
-.mc-announce__item a:hover{
-  text-decoration: underline;
+.mc-announce__sep{ opacity: .5; }
+
+/* Gap utilisé en mode 1 item */
+.mc-announce__gap{
+  display: inline-block;
+  width: 280px; /* espace entre répétitions */
 }
 
-.mc-announce__sep{
-  opacity: .5;
+/* =========================
+   MODE 2+ items : 2 tracks
+   ========================= */
+.mc-announce__track--a{
+  animation: mc-marquee-a 22s linear infinite;
+}
+
+.mc-announce__track--b{
+  animation: mc-marquee-b 22s linear infinite;
 }
 
 /* Track A : arrive de la droite -> sort à gauche */
@@ -206,15 +194,27 @@
   to  { transform: translateX(-200%); }
 }
 
+/* =========================
+   MODE 1 item : 1 track (pas de track B)
+   Le HTML n'a que track--a, avec item + gap + item + gap + item
+   On fait défiler plus doucement sur -50%
+   ========================= */
+.mc-announce__marquee:has(.mc-announce__track--a):not(:has(.mc-announce__track--b)) .mc-announce__track--a{
+  animation: mc-marquee-single 16s linear infinite;
+}
+
+@keyframes mc-marquee-single{
+  from{ transform: translateX(0); }
+  to  { transform: translateX(-50%); }
+}
+
 /* Pause au survol */
 .mc-announce:hover .mc-announce__track{
   animation-play-state: paused;
 }
 
-/* Fallback accessibilité */
-.mc-announce__static{
-  display: none;
-}
+/* Accessibilité */
+.mc-announce__static{ display: none; }
 
 @media (prefers-reduced-motion: reduce){
   .mc-announce__marquee{ display: none; }
@@ -223,33 +223,10 @@
     font-size: .9rem;
     opacity: .95;
   }
-  .mc-announce__track{ animation: none; }
+  .mc-announce__track{ animation: none !important; }
 }
 
-.mc-announce__single{
-  flex: 1;
-  font-size: .88rem;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.mc-announce__date{
-  opacity: .7;
-}
-
-/* Espace entre répétitions quand il n'y a qu'un item */
-.mc-announce__gap{
-  display: inline-block;
-  width: 240px;   /* augmente si tu veux plus d'espace */
-}
-
-/* Quand il n'y a qu'un track (mode 1 item), on utilise un défilement complet */
-.mc-announce__track--a{
-  animation: mc-marquee-single 16s linear infinite;
-}
-
-@keyframes mc-marquee-single{
-  from{ transform: translateX(0); }
-  to  { transform: translateX(-50%); }
+/* Option: cacher l’heure sur mobile si trop chargé */
+@media (max-width: 700px){
+  .mc-announce__stamp{ display: none; }
 }

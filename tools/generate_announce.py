@@ -116,13 +116,14 @@ def collect_added_modified_lookback(days: int) -> tuple[list[str], list[str]]:
         line = line.strip()
         if not line or "\t" not in line:
             continue
+
         status, path = line.split("\t", 1)
         path = path.strip()
 
         if not (path.startswith("docs/") and path.endswith(".md")):
             continue
 
-        # si supprimé : on l'enlève des listes éventuelles et on ignore
+        # supprimé
         if status == "D":
             added.discard(path)
             modified.discard(path)
@@ -137,7 +138,7 @@ def collect_added_modified_lookback(days: int) -> tuple[list[str], list[str]]:
         elif status == "M":
             modified.add(path)
 
-    # évite doublons
+    # évite doublons A vs M
     modified = {f for f in modified if f not in added}
     return sorted(added), sorted(modified)
 
@@ -161,35 +162,37 @@ def render_marquee(added: list[str], modified: list[str], max_items_each: int = 
     if not items:
         return ""
 
-    today = datetime.now().strftime("%d/%m/%Y")
+    stamp = datetime.now().strftime("%d/%m/%Y %H:%M")
 
-    # ✅ Si 0 ou 1 item : pas de défilement (sinon double inévitable)
+    # --- Cas 1 : 1 seul item -> défilement avec “gros espace”, sans double collé
     if len(items) < 2:
-    # ✅ défilement même avec 1 item : on ajoute un gros espace entre répétitions
         spacer = '<span class="mc-announce__gap" aria-hidden="true"></span>'
         track = f"{items[0]}{spacer}{items[0]}{spacer}{items[0]}"
 
-    return f"""<div class="md-banner mc-announce" role="status" aria-label="Nouveautés">
+        return f"""<div class="md-banner mc-announce" role="status" aria-label="Nouveautés">
   <div class="mc-announce__inner">
     <span class="mc-announce__label">NOUVEAUTÉS</span>
+    <span class="mc-announce__stamp">🕒 {stamp}</span>
 
     <div class="mc-announce__marquee" aria-hidden="true">
       <div class="mc-announce__track mc-announce__track--a">{track}</div>
     </div>
 
     <div class="mc-announce__static">
-      📌 Nouveautés ({today}) — {items[0]}
+      📌 Mis à jour le {stamp} — {items[0]}
     </div>
   </div>
 </div>
 """
 
+    # --- Cas 2 : 2+ items -> 2 tracks qui se relaient
     sep = '<span class="mc-announce__sep">•</span>'
     track = f" {sep} ".join(items)
 
     return f"""<div class="md-banner mc-announce" role="status" aria-label="Nouveautés">
   <div class="mc-announce__inner">
     <span class="mc-announce__label">NOUVEAUTÉS</span>
+    <span class="mc-announce__stamp">🕒 {stamp}</span>
 
     <div class="mc-announce__marquee" aria-hidden="true">
       <div class="mc-announce__track mc-announce__track--a">{track}</div>
@@ -197,11 +200,12 @@ def render_marquee(added: list[str], modified: list[str], max_items_each: int = 
     </div>
 
     <div class="mc-announce__static">
-      📌 Nouveautés ({today}) — {items[0]}
+      📌 Mis à jour le {stamp} — {items[0]}
     </div>
   </div>
 </div>
 """
+
 
 def main() -> None:
     OUT_FILE.parent.mkdir(parents=True, exist_ok=True)
@@ -211,7 +215,7 @@ def main() -> None:
     referenced = collect_referenced_docs_from_all_indexes()
     added, modified = collect_added_modified_lookback(days)
 
-    # ✅ filtre index + existence déjà assurée
+    # filtre “référencé dans un index”
     added_f = [f for f in added if f in referenced]
     modified_f = [f for f in modified if f in referenced]
 
