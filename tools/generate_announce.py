@@ -143,44 +143,61 @@ def collect_added_modified_lookback(days: int) -> tuple[list[str], list[str]]:
 
 
 def render_marquee(added: list[str], modified: list[str], max_items_each: int = 6) -> str:
-    # Pas de doublon added vs modified
+    # évite doublon added vs modified
     added_set = set(added)
     modified = [f for f in modified if f not in added_set]
 
-    items_html: list[str] = []
+    items: list[str] = []
 
     for f in added[:max_items_each]:
-        items_html.append(
+        items.append(
             f'<span class="mc-announce__item">✅ <a href="{md_to_url(f)}">{title_from_file(f)}</a></span>'
         )
     for f in modified[:max_items_each]:
-        items_html.append(
+        items.append(
             f'<span class="mc-announce__item">🔁 <a href="{md_to_url(f)}">{title_from_file(f)}</a></span>'
         )
 
-    if not items_html:
+    if not items:
         return ""
 
-    sep = '<span class="mc-announce__sep">•</span>'
-    track = f" {sep} ".join(items_html)
     today = datetime.now().strftime("%d/%m/%Y")
 
-    # ✅ 2 tracks identiques, mais le contenu n'est écrit qu'une seule fois par track
+    # ✅ Si 0 ou 1 item : pas de défilement (sinon double inévitable)
+    if len(items) < 2:
+    # ✅ défilement même avec 1 item : on ajoute un gros espace entre répétitions
+        spacer = '<span class="mc-announce__gap" aria-hidden="true"></span>'
+        track = f"{items[0]}{spacer}{items[0]}{spacer}{items[0]}"
+
     return f"""<div class="md-banner mc-announce" role="status" aria-label="Nouveautés">
   <div class="mc-announce__inner">
     <span class="mc-announce__label">NOUVEAUTÉS</span>
 
     <div class="mc-announce__marquee" aria-hidden="true">
-      <div class="mc-announce__track mc-announce__track--a">
-        {track}
-      </div>
-      <div class="mc-announce__track mc-announce__track--b">
-        {track}
-      </div>
+      <div class="mc-announce__track mc-announce__track--a">{track}</div>
     </div>
 
     <div class="mc-announce__static">
-      📌 Nouveautés ({today}) — {items_html[0]}
+      📌 Nouveautés ({today}) — {items[0]}
+    </div>
+  </div>
+</div>
+"""
+
+    sep = '<span class="mc-announce__sep">•</span>'
+    track = f" {sep} ".join(items)
+
+    return f"""<div class="md-banner mc-announce" role="status" aria-label="Nouveautés">
+  <div class="mc-announce__inner">
+    <span class="mc-announce__label">NOUVEAUTÉS</span>
+
+    <div class="mc-announce__marquee" aria-hidden="true">
+      <div class="mc-announce__track mc-announce__track--a">{track}</div>
+      <div class="mc-announce__track mc-announce__track--b">{track}</div>
+    </div>
+
+    <div class="mc-announce__static">
+      📌 Nouveautés ({today}) — {items[0]}
     </div>
   </div>
 </div>

@@ -225,3 +225,31 @@
   }
   .mc-announce__track{ animation: none; }
 }
+
+.mc-announce__single{
+  flex: 1;
+  font-size: .88rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.mc-announce__date{
+  opacity: .7;
+}
+
+/* Espace entre répétitions quand il n'y a qu'un item */
+.mc-announce__gap{
+  display: inline-block;
+  width: 240px;   /* augmente si tu veux plus d'espace */
+}
+
+/* Quand il n'y a qu'un track (mode 1 item), on utilise un défilement complet */
+.mc-announce__track--a{
+  animation: mc-marquee-single 16s linear infinite;
+}
+
+@keyframes mc-marquee-single{
+  from{ transform: translateX(0); }
+  to  { transform: translateX(-50%); }
+}
