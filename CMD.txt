@@ -1,0 +1,14 @@
+cd C:\Users\graim\Documents\Runbook-AdminSys
+
+.\.venv\Scripts\Activate.ps1
+
+git add .
+git commit -m "Update documentation"
+git push
+
+python tools\generate_announce.py
+type docs\overrides\partials\announce.html
+zensical build --clean
+
+git commit --allow-empty -m "Force rebuild"
+git push

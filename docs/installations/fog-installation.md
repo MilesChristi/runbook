@@ -115,8 +115,17 @@ Plage DHCP (si utilisée)
 
 ```bash
 sudo apt update && sudo apt full-upgrade -y
-sudo apt install -y curl git
+sudo apt install curl -y
+sudo apt install git -y
 ```
+
+Depuis le répertoire personnel de l’utilisateur connecté, exécutez la commande ci-dessous, puis patientez pendant le téléchargement des composants nécessaires.
+
+```bash
+git clone https://github.com/fogproject/fogproject.git fogproject-stable
+```
+
+Accédez au dossier contenant les scripts d’installation, Le programme d’installation automatisé se nomme **installfog.sh**, exécutez la commande.
 
 ```bash
 cd fogproject-stable/bin
